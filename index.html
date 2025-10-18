@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สุขสันต์วันเกิดนะที่รัก 💕</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Prompt", sans-serif;
+      background: linear-gradient(180deg, #ffeaf4, #ffd6eb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #333;
+    }
+    .hidden { display: none; }
+    .container {
+      text-align: center;
+      background: rgba(255,255,255,0.8);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      background-color: #ff92c2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover { background-color: #ff6fa7; }
+    img {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+    }
+    .cake { font-size: 80px; cursor: pointer; transition: transform 0.3s; }
+    .cake:hover { transform: scale(1.1); }
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      opacity: 0.8;
+      animation: fall 3s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="lock-screen">
+    <h2>ใส่รหัสเพื่อเปิดของขวัญ 💖</h2>
+    <input type="password" id="password" placeholder="กรอกรหัสผ่าน">
+    <br>
+    <button onclick="checkPassword()">ปลดล็อก</button>
+  </div>
+
+  <div class="container hidden" id="main-content">
+    <img src="https://files.catbox.moe/jvi0ve.heif" alt="แฟนสุดน่ารัก">
+    <div class="cake" onclick="blowCake()">🎂</div>
+    <p style="white-space: pre-line; font-size: 16px; line-height: 1.6;">
+      สุขสันต์วันเกิดนะที่รัก 💕
+      ขอให้ทุกวันของเธอมีแต่ความสุข สดใส และมีฉันอยู่ข้าง ๆ เสมอ 🫶
+    </p>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+  <audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_19b02f62a7.mp3?filename=happy-birthday-24065.mp3" preload="auto"></audio>
+
+  <script>
+    const PASSWORD = "191049";
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === PASSWORD) {
+        document.getElementById("lock-screen").classList.add("hidden");
+        document.getElementById("main-content").classList.remove("hidden");
+        document.getElementById("music").play();
+      } else {
+        alert("รหัสไม่ถูกต้องค่ะ 😘");
+      }
+    }
+
+    function blowCake() {
+      createConfetti();
+    }
+
+    function createConfetti() {
+      const confetti = document.getElementById("confetti");
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("div");
+        piece.classList.add("piece");
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = `hsl(${Math.random()*360},70%,80%)`;
+        piece.style.animationDelay = Math.random() * 2 + "s";
+        piece.style.width = piece.style.height = Math.random() * 8 + 4 + "px";
+        confetti.appendChild(piece);
+        setTimeout(() => piece.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
